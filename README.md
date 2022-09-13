@@ -11,7 +11,7 @@ Please press **&#9733; Star** button if you find this library useful.
 This library uses AWS API through AWS PHP SDK, which has limits on concurrent requests. It means that on high concurrent or high load applications it may not work on it's best way. Please consider using another solution such as logging to the stdout and redirecting logs with fluentd.
 
 ## Requirements
-* PHP ^7.2 || ^8
+* PHP ^7.2
 * aws/aws-sdk-php": "^3.18
 * AWS account with proper permissions (see list of permissions below)
 
@@ -59,16 +59,101 @@ try{
     $retentionDays = 30;//By Default retention days upto 14 days
 
     /**
-      Generally $putLog function returns associate array
+      Generally putLog function returns associate array
       If Logs sends successfully => ['status' => true,'message' => 'Log sended successfully']
       If Logs failed to sends => ['status' => false,'error' => 'EXCEPTION_MESSAGE']
     */
     $res = $logs->putLog('YOUR_LOGGROUP_NAME','YOUR_LOGSTREAM_NAME',$retentionDays,$datas);
 
+    if($res['status']){//If log sends successfully
+        echo $res['message'];
+    }else{//If log fails to sends
+        echo $res['error'];
+    }
     
 }catch(\Exception $e){
     echo $e->getMessage();
 }
+```
+
+# To check if Log Group exists
+
+```php
+<?php
+    /**
+      Generally checkLogGroupExists function returns associate array
+      If Logs group exists => ['status' => true,'message' => 'Log Group Exists']
+      If Logs group not exists => ['status' => false,'error' => 'EXCEPTION_MESSAGE']
+    */
+
+    $res = $logs->checkLogGroupExists('YOUR_LOG_GROUP_NAME');
+
+    if($res['status']){//If log group is exists
+        echo $res['message'];
+    }else{//If log group not exists
+        echo $res['error'];
+    }
+?>
+```
+
+# To check if Log Stream exists
+
+```php
+<?php
+    /**
+      Generally checkLogStreamExists function returns associate array
+      If Logs stream exists => ['status' => true,'message' => 'Log Stream Exists']
+      If Logs stream not exists => ['status' => false,'error' => 'EXCEPTION_MESSAGE']
+    */
+    
+    $res = $logs->checkLogStreamExists('YOUR_LOG_STREAM_NAME');
+
+    if($res['status']){//If log stream is exists
+        echo $res['message'];
+    }else{//If log stream not exists
+        echo $res['error'];
+    }
+?>
+```
+
+# To create log group
+
+```php
+<?php
+    /**
+      Generally createLogGroup function returns associate array
+      If Logs group created successfully => ['status' => true,'message' => 'Log Group Created Successfully']
+      If Logs group fails to create  => ['status' => false,'error' => 'EXCEPTION_MESSAGE']
+    */
+
+    $res = $logs->createLogGroup('YOUR_LOG_GROUP_NAME');
+
+    if($res['status']){//If log group created successfully
+        echo $res['message'];
+    }else{//If log group fails to create
+        echo $res['error'];
+    }
+?>
+```
+
+# To craete log stream
+
+```php
+<?php
+     /**
+      Generally createLogStream function returns associate array
+      If Logs stream created successfully => ['status' => true,'message' => 'Log Stream Created Successfully']
+      If Logs stream fails to create  => ['status' => false,'error' => 'EXCEPTION_MESSAGE']
+    */
+
+    $res = $logs->createLogStream('YOUR_LOG_GROUP_NAME','YOUR_LOG_STREAM_NAME');
+
+    if($res['status']){//If log stream created successfully
+        echo $res['message'];
+    }else{//If log stream fails to create
+        echo $res['error'];
+    }
+?>
 ```
 
 # AWS IAM needed permissions
@@ -124,9 +209,5 @@ Feel free to [report any issues](https://github.com/kirubha7/cloudwatch-logs-lar
 
 ___
 
-Made in India In
-# cloudwatch-logs-laravel
+Made in India
 
-```bash
-$ composer require kirubha7/cloudwatch-logs-laravel
-```

@@ -2,15 +2,13 @@
 
 namespace kirubha7\CloudwatchLogsLaravel; 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
-use Exception;
-
 class Cloudwatchlogs{
 
    /***Description */
    const DESCRIPTION = 'Cloudwatch Logs Laravel'; 
 
    /**Version */
-   const VERSION = 'v1.0-beta'; 
+   const VERSION = 'v1.0'; 
 
    /**AWS clinet SDK params*/
    private $client;
@@ -26,19 +24,6 @@ class Cloudwatchlogs{
    {
       $this->client = $client;
    }
-
-   public static function customLog($log_msg)
-   {
-      $log_filename = "log";
-      if (!file_exists($log_filename)) 
-      {
-         // create directory/folder uploads.
-         mkdir($log_filename, 0777, self::SUCCESS);
-      }
-      $log_file_data = $log_filename.'/log_' . date('d-M-Y') . '.log';
-      // if you don't add `FILE_APPEND`, the file will be erased each time you add a log
-      file_put_contents($log_file_data,print_r($log_msg,self::SUCCESS) . "\n", FILE_APPEND);
-   } 
 
    public static function ping() : bool
    {
@@ -221,3 +206,5 @@ class Cloudwatchlogs{
    }
 
 }
+
+?>
