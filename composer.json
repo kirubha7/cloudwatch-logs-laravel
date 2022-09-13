@@ -1,0 +1,29 @@
+{
+    "name": "kirubha7/cloudwatch-logs-laravel",
+    "description": "Laravel Cloudwatch Logs Package",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "aws",
+        "cloudwatch",
+        "monolog"
+    ],
+    "authors": [
+        {
+            "name": "Kirubhakaran R",
+            "email": "kirubharaj777@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8",
+        "aws/aws-sdk-php": "^3.18"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "kirubha7\\CloudwatchLogsLaravel\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
